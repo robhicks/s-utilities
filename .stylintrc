@@ -1,0 +1,14 @@
+{
+  "brackets": {
+    "expect": "always",
+    "error": false
+  },
+  "colons": {
+    "expect": "never",
+    "error": false
+  },
+  "semicolons": {
+    "expect": "never",
+    "error": false
+  }
+}

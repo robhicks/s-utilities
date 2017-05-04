@@ -1,0 +1,26 @@
+{
+  "name": "utilities",
+  "version": "1.0.0",
+  "description": "A collection of useful utilties",
+  "main": "dist/utilities.cjs.js",
+  "module": "dist/utilities.es.js",
+  "repository": "https://github.com/robhicks/utilties.git",
+  "author": "Rob Hicks <rob@hixfamily.org>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "rollup -cw",
+    "jasmine": "jasmine-node spec --color --verbose --autotest --watch src --watch spec",
+    "test": "jasmine-node spec"
+  },
+  "devDependencies": {
+    "jasmine": "^2.6.0",
+    "jasmine-node": "^1.14.5",
+    "jasmine-spec-reporter": "^4.1.0",
+    "nock": "^9.0.13",
+    "reify": "^0.8.4",
+    "rollup": "^0.41.6",
+    "rollup-plugin-buble": "^0.15.0",
+    "rollup-plugin-uglify": "^1.0.2",
+    "rollup-watch": "^3.2.2"
+  }
+}

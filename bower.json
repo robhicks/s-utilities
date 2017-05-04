@@ -1,0 +1,17 @@
+{
+  "name": "utilities",
+  "description": "A collection of useful utilties",
+  "main": "index.js",
+  "authors": [
+    "Rob Hicks <rob@hixfamily.org>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
