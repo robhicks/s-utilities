@@ -50,6 +50,32 @@ function isJson(str) {
   }
 }
 
+function pad(n, width, z) {
+  if ( n === void 0 ) n = '';
+  if ( z === void 0 ) z = '0';
+
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
+
+var StringBuilder = function StringBuilder(string) {
+  if (!string || typeof string === 'undefined') { this.string = String(""); }
+  else { this.string = String(string); }
+};
+StringBuilder.prototype.toString = function toString () {
+  return this.string;
+};
+StringBuilder.prototype.append = function append (val) {
+  this.string += val;
+  return this;
+};
+StringBuilder.prototype.insert = function insert (pos, val) {
+  var length = this.string.length;
+  var left = this.string.slice(0,pos);
+  var right = this.string.slice(pos);
+  this.string = left + val + right;
+  return this;
+};
+
 function throttle(func, wait, immediate) {
   return debounce(func, wait, immediate);
 }
@@ -64,4 +90,4 @@ function uuid$1() {
   return uid;
 }
 
-export { allSettled, contains, copy, debounce, isInViewport, isJson, throttle, uuid$1 as uuid };
+export { allSettled, contains, copy, debounce, isInViewport, isJson, pad, StringBuilder, throttle, uuid$1 as uuid };

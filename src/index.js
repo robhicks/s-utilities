@@ -5,6 +5,7 @@ import debounce from './debounce.js';
 import isInViewport from './isInViewport.js';
 import isJson from './isJson.js';
 import pad from './pad.js';
+import StringBuilder from './StringBuilder.js';
 import throttle from './throttle.js';
 import uuid from './uuid.js';
 
@@ -16,6 +17,7 @@ export {
   isInViewport,
   isJson,
   pad,
+  StringBuilder,
   throttle,
   uuid
 };
