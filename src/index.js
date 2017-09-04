@@ -1,4 +1,6 @@
+import {addClass, hasClass, removeClass} from './manageClasses';
 import allSettled from './allSettled.js';
+import appendAfter from './appendAfter';
 import contains from './contains.js';
 import copy from './copy.js';
 import debounce from './debounce.js';
@@ -10,13 +12,17 @@ import throttle from './throttle.js';
 import uuid from './uuid.js';
 
 export {
+  addClass,
   allSettled,
+  appendAfter,
   contains,
   copy,
   debounce,
+  hasClass,
   isInViewport,
   isJson,
   pad,
+  removeClass,
   StringBuilder,
   throttle,
   uuid

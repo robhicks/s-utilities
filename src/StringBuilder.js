@@ -1,7 +1,6 @@
 export default class StringBuilder {
-  constructor(string) {
-    if (!string || typeof string === 'undefined') this.string = String("");
-    else this.string = String(string);
+  constructor(string = '') {
+    this.string = String(string);
   }
   toString() {
     return this.string;
@@ -12,7 +11,7 @@ export default class StringBuilder {
   }
   insert(pos, val) {
     let length = this.string.length;
-    let left = this.string.slice(0,pos);
+    let left = this.string.slice(0, pos);
     let right = this.string.slice(pos);
     this.string = left + val + right;
     return this;

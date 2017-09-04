@@ -2,12 +2,37 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+function hasClass(el, name) {
+  return el.className.match(new RegExp("(\\s|^)" + name + "(\\s|$)")) === null ? false : true;
+}
+
+function addClass(el, name) {
+  if (!hasClass(el, name)) {
+    el.className += (el.className ? ' ' : '') + name;
+  }
+}
+
+function removeClass(el, name) {
+  if (hasClass(el, name)) {
+    el.className = el.className.replace(new RegExp('(\\s|^)' + name + '(\\s|$)'), ' ').replace(/^\s+|\s+$/g, '');
+  }
+}
+
 var allSettled = function(promises) {
   return Promise.all(promises.map(function (promise) { return promise
         .then(function (value) { return ({state: 'fulfilled', value: value}); })
         .catch(function (reason) { return ({state: 'rejected', reason: reason}); }); }
     ));
   };
+
+function appendAfter(el, sibling) {
+  if (el.nextSibling) {
+      el.parentNode.insertBefore(sibling, el.nextSibling);
+      return;
+  }
+
+  el.parentNode.appendChild(sibling);
+}
 
 function contains(str, val) {
   return str.indexOf(val) !== -1;
@@ -62,8 +87,9 @@ function pad(n, width, z) {
 }
 
 var StringBuilder = function StringBuilder(string) {
-  if (!string || typeof string === 'undefined') { this.string = String(""); }
-  else { this.string = String(string); }
+  if ( string === void 0 ) string = '';
+
+  this.string = String(string);
 };
 StringBuilder.prototype.toString = function toString () {
   return this.string;
@@ -73,8 +99,7 @@ StringBuilder.prototype.append = function append (val) {
   return this;
 };
 StringBuilder.prototype.insert = function insert (pos, val) {
-  var length = this.string.length;
-  var left = this.string.slice(0,pos);
+  var left = this.string.slice(0, pos);
   var right = this.string.slice(pos);
   this.string = left + val + right;
   return this;
@@ -94,13 +119,17 @@ function uuid$1() {
   return uid;
 }
 
+exports.addClass = addClass;
 exports.allSettled = allSettled;
+exports.appendAfter = appendAfter;
 exports.contains = contains;
 exports.copy = copy;
 exports.debounce = debounce;
+exports.hasClass = hasClass;
 exports.isInViewport = isInViewport;
 exports.isJson = isJson;
 exports.pad = pad;
+exports.removeClass = removeClass;
 exports.StringBuilder = StringBuilder;
 exports.throttle = throttle;
 exports.uuid = uuid$1;
