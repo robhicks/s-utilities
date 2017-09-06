@@ -1,4 +1,4 @@
-import {addClass, hasClass, removeClass} from './manageClasses';
+import {addClass, addClasses, hasClass, removeClass} from './manageClasses';
 import allSettled from './allSettled.js';
 import appendAfter from './appendAfter';
 import contains from './contains.js';
@@ -13,6 +13,7 @@ import uuid from './uuid.js';
 
 export {
   addClass,
+  addClasses,
   allSettled,
   appendAfter,
   contains,

@@ -1,6 +1,3 @@
-var RHUtils = (function (exports) {
-'use strict';
-
 function hasClass(el, name) {
   return el.className.match(new RegExp("(\\s|^)" + name + "(\\s|$)")) === null ? false : true;
 }
@@ -9,6 +6,11 @@ function addClass(el, name) {
   if (!hasClass(el, name)) {
     el.className += (el.className ? ' ' : '') + name;
   }
+}
+
+function addClasses(el, names) {
+  var _names = names.slit(' ');
+  _names.forEach(function (n) { return addClass(el, n); });
 }
 
 function removeClass(el, name) {
@@ -118,21 +120,4 @@ function uuid$1() {
   return uid;
 }
 
-exports.addClass = addClass;
-exports.allSettled = allSettled;
-exports.appendAfter = appendAfter;
-exports.contains = contains;
-exports.copy = copy;
-exports.debounce = debounce;
-exports.hasClass = hasClass;
-exports.isInViewport = isInViewport;
-exports.isJson = isJson;
-exports.pad = pad;
-exports.removeClass = removeClass;
-exports.StringBuilder = StringBuilder;
-exports.throttle = throttle;
-exports.uuid = uuid$1;
-
-return exports;
-
-}({}));
+export { addClass, addClasses, allSettled, appendAfter, contains, copy, debounce, hasClass, isInViewport, isJson, pad, removeClass, StringBuilder, throttle, uuid$1 as uuid };

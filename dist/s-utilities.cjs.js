@@ -12,6 +12,11 @@ function addClass(el, name) {
   }
 }
 
+function addClasses(el, names) {
+  var _names = names.slit(' ');
+  _names.forEach(function (n) { return addClass(el, n); });
+}
+
 function removeClass(el, name) {
   if (hasClass(el, name)) {
     el.className = el.className.replace(new RegExp('(\\s|^)' + name + '(\\s|$)'), ' ').replace(/^\s+|\s+$/g, '');
@@ -120,6 +125,7 @@ function uuid$1() {
 }
 
 exports.addClass = addClass;
+exports.addClasses = addClasses;
 exports.allSettled = allSettled;
 exports.appendAfter = appendAfter;
 exports.contains = contains;

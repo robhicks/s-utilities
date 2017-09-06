@@ -1,10 +1,10 @@
 {
-  "name": "utilities",
-  "version": "1.1.0",
-  "description": "A collection of useful utilties",
-  "main": "dist/utilities.cjs.js",
-  "module": "dist/utilities.es.js",
-  "repository": "https://github.com/robhicks/utilties.git",
+  "name": "s-utilities",
+  "version": "1.0.0",
+  "description": "A collection of useful Javascript utilties",
+  "main": "dist/s-utilities.cjs.js",
+  "module": "dist/s-utilities.es.js",
+  "repository": "https://github.com/robhicks/s-utilties.git",
   "author": "Rob Hicks <rob@hixfamily.org>",
   "license": "MIT",
   "scripts": {

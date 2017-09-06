@@ -9,9 +9,9 @@ export default [
 		input,
 		plugins,
 		globals,
-    name: 'RHUtils',
+    name: 'SUtils',
     output: {
-      file: 'dist/utilities.iife.js',
+      file: 'dist/s-utilities.iife.js',
       format: 'iife'
     }
   },
@@ -20,7 +20,7 @@ export default [
 		plugins,
 		globals,
     output: {
-      file: 'dist/utilities.es.js',
+      file: 'dist/s-utilities.es.js',
       format: 'es'
     }
   },
@@ -29,7 +29,7 @@ export default [
 		plugins,
 		globals,
     output: {
-      file: 'dist/utilities.cjs.js',
+      file: 'dist/s-utilities.cjs.js',
       format: 'cjs'
     }
   }
