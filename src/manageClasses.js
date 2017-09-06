@@ -8,8 +8,8 @@ function addClass(el, name) {
   }
 }
 
-function addClasses(el, names) {
-  let _names = names.slit(' ');
+function addClasses(el, names = '') {
+  let _names = names.split(' ');
   _names.forEach((n) => addClass(el, n));
 }
 
