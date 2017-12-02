@@ -1,6 +1,6 @@
 {
   "name": "s-utilities",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A collection of useful Javascript utilties",
   "main": "dist/s-utilities.cjs.js",
   "module": "dist/s-utilities.es.js",

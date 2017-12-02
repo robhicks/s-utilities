@@ -36,5 +36,12 @@ export default [
       file: 'dist/s-utilities.min.mjs',
       format: 'es'
     }
+  },
+  {
+		input,
+    output: {
+      file: 'index.js',
+      format: 'cjs'
+    }
   }
 ];
