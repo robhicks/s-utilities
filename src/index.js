@@ -15,7 +15,6 @@ import uuid from './uuid.js';
 export {
   addClass,
   addClasses,
-  allSettled,
   appendAfter,
   contains,
   copy,

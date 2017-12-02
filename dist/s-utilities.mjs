@@ -124,4 +124,4 @@ function uuid$1() {
   return uid;
 }
 
-export { addClass, addClasses, allSettled, appendAfter, contains, copy, debounce, hasClass, isInViewport, isJson, pad, removeClass, StringBuilder, throttle, uuid$1 as uuid };
+export { addClass, addClasses, appendAfter, contains, copy, debounce, hasClass, isInViewport, isJson, pad, removeClass, StringBuilder, throttle, uuid$1 as uuid };

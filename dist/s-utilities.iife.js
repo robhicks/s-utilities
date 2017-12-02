@@ -134,7 +134,6 @@ function uuid$1() {
 
 exports.addClass = addClass;
 exports.addClasses = addClasses;
-exports.allSettled = allSettled;
 exports.appendAfter = appendAfter;
 exports.contains = contains;
 exports.copy = copy;
