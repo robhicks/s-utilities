@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test</title>
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
+
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+    <script src="../node_modules/sinon-chai/lib/sinon-chai.js"></script>
+    <script>mocha.setup('bdd')</script>
+    <script src="./test/contains.test.mjs" type="module"></script>
+    <script src="./test/copy.test.mjs" type="module"></script>
+    <script src="./test/isJson.test.mjs" type="module"></script>
+    <script src="./test/Promise.allSettled.test.js" type="module"></script>
+    <script src="./test/Promise.series.test.js" type="module"></script>
+    <script src="./test/sanitizer.test.mjs" type="module"></script>
+    <script src="./test/throttle.test.mjs" type="module"></script>
+    <script src="./test/uuid.test.mjs" type="module"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      expect = chai.expect;
+      mocha.run();
+    });
+    </script>
+  </body>
+</html>
