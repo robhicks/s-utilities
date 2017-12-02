@@ -1,5 +1,5 @@
-Promise.series = function (array) {
-  var results = [];
+Promise.series = (array) => {
+  let results = [];
   return array.reduce(function(p, item) {
     return p.then(function() {
       return item.then(function(data) {
@@ -22,11 +22,9 @@ function addClass(el, name) {
   }
 }
 
-function addClasses(el, names) {
-  if ( names === void 0 ) names = '';
-
-  var _names = names.split(' ');
-  _names.forEach(function (n) { return addClass(el, n); });
+function addClasses(el, names = '') {
+  let _names = names.split(' ');
+  _names.forEach((n) => addClass(el, n));
 }
 
 function removeClass(el, name) {
@@ -53,25 +51,25 @@ function copy(obj) {
 }
 
 function debounce(func, wait, immediate) {
-  var timeout;
+  let timeout;
   return function() {
-    var context = this,
+    let context = this,
       args = arguments;
-    var later = function() {
+    let later = function() {
       timeout = null;
-      if (!immediate) { func.apply(context, args); }
+      if (!immediate) func.apply(context, args);
     };
-    var callNow = immediate && !timeout;
+    let callNow = immediate && !timeout;
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
-    if (callNow) { func.apply(context, args); }
+    if (callNow) func.apply(context, args);
   };
 }
 
 function isInViewport(element) {
-  var rect = element.getBoundingClientRect();
+  let rect = element.getBoundingClientRect();
   // console.log("rect", rect)
-  var html = document.documentElement;
+  let html = document.documentElement;
   return (
     rect.top >= 0 - rect.height &&
     rect.left >= 0 - rect.width &&
@@ -82,47 +80,44 @@ function isInViewport(element) {
 
 function isJson(str) {
   try {
-    var json = JSON.parse(str);
+    let json = JSON.parse(str);
     return json;
   } catch (e) {
     return false;
   }
 }
 
-function pad(n, width, z) {
-  if ( n === void 0 ) n = '';
-  if ( z === void 0 ) z = '0';
-
+function pad(n = '', width, z = '0') {
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
-var StringBuilder = function StringBuilder(string) {
-  if ( string === void 0 ) string = '';
-
-  this.string = String(string);
-};
-StringBuilder.prototype.toString = function toString () {
-  return this.string;
-};
-StringBuilder.prototype.append = function append (val) {
-  this.string += val;
-  return this;
-};
-StringBuilder.prototype.insert = function insert (pos, val) {
-  var left = this.string.slice(0, pos);
-  var right = this.string.slice(pos);
-  this.string = left + val + right;
-  return this;
-};
+class StringBuilder {
+  constructor(string = '') {
+    this.string = String(string);
+  }
+  toString() {
+    return this.string;
+  }
+  append(val) {
+    this.string += val;
+    return this;
+  }
+  insert(pos, val) {
+    let left = this.string.slice(0, pos);
+    let right = this.string.slice(pos);
+    this.string = left + val + right;
+    return this;
+  }
+}
 
 function throttle(func, wait, immediate) {
   return debounce(func, wait, immediate);
 }
 
 function uuid$1() {
-  var d = new Date().getTime();
-  var uid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = (d + Math.random() * 16) % 16 | 0;
+  let d = new Date().getTime();
+  let uid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    let r = (d + Math.random() * 16) % 16 | 0;
     d = Math.floor(d / 16);
     return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
   });

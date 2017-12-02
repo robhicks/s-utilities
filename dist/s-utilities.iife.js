@@ -1,6 +1,20 @@
 var SUtils = (function (exports) {
 'use strict';
 
+Promise.series = function (array) {
+  var results = [];
+  return array.reduce(function(p, item) {
+    return p.then(function() {
+      return item.then(function(data) {
+        results.push(data);
+        return results;
+      });
+    });
+  }, Promise.resolve());
+};
+
+// Promise.series = tasks => tasks.reduce((p, task) => p.then(task));
+
 function hasClass(el, name) {
   return el.className.match(new RegExp("(\\s|^)" + name + "(\\s|$)")) === null ? false : true;
 }
@@ -12,7 +26,9 @@ function addClass(el, name) {
 }
 
 function addClasses(el, names) {
-  var _names = names.slit(' ');
+  if ( names === void 0 ) names = '';
+
+  var _names = names.split(' ');
   _names.forEach(function (n) { return addClass(el, n); });
 }
 
@@ -21,13 +37,6 @@ function removeClass(el, name) {
     el.className = el.className.replace(new RegExp('(\\s|^)' + name + '(\\s|$)'), ' ').replace(/^\s+|\s+$/g, '');
   }
 }
-
-var allSettled = function(promises) {
-  return Promise.all(promises.map(function (promise) { return promise
-        .then(function (value) { return ({state: 'fulfilled', value: value}); })
-        .catch(function (reason) { return ({state: 'rejected', reason: reason}); }); }
-    ));
-  };
 
 function appendAfter(el, sibling) {
   if (el.nextSibling) {

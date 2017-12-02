@@ -1,5 +1,6 @@
+import './Promise.allSettled.js';
+import './Promise.series.mjs';
 import {addClass, addClasses, hasClass, removeClass} from './manageClasses';
-import allSettled from './allSettled.js';
 import appendAfter from './appendAfter';
 import contains from './contains.js';
 import copy from './copy.js';
