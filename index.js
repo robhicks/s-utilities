@@ -2,6 +2,19 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+Promise.allSettled = (promises) =>
+  Promise.all(promises.map((promise) =>
+    promise
+    .then((value) => ({
+      state: 'fulfilled',
+      value
+    }))
+    .catch((reason) => ({
+      state: 'rejected',
+      reason
+    }))
+  ));
+
 Promise.series = (array) => {
   let results = [];
   return array.reduce(function(p, item) {
@@ -46,13 +59,13 @@ function appendAfter(el, sibling) {
   el.parentNode.appendChild(sibling);
 }
 
-function contains(str, val) {
+function contains(str = '', val) {
   return str.indexOf(val) !== -1;
 }
 
-function copy(obj) {
+var copy = function(obj = {}) {
   return JSON.parse(JSON.stringify(obj));
-}
+};
 
 function debounce(func, wait, immediate) {
   let timeout;

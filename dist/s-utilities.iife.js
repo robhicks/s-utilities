@@ -1,6 +1,17 @@
 var SUtils = (function (exports) {
 'use strict';
 
+Promise.allSettled = function (promises) { return Promise.all(promises.map(function (promise) { return promise
+    .then(function (value) { return ({
+      state: 'fulfilled',
+      value: value
+    }); })
+    .catch(function (reason) { return ({
+      state: 'rejected',
+      reason: reason
+    }); }); }
+  )); };
+
 Promise.series = function (array) {
   var results = [];
   return array.reduce(function(p, item) {
@@ -48,12 +59,16 @@ function appendAfter(el, sibling) {
 }
 
 function contains(str, val) {
+  if ( str === void 0 ) str = '';
+
   return str.indexOf(val) !== -1;
 }
 
-function copy(obj) {
+var copy = function(obj) {
+  if ( obj === void 0 ) obj = {};
+
   return JSON.parse(JSON.stringify(obj));
-}
+};
 
 function debounce(func, wait, immediate) {
   var timeout;
