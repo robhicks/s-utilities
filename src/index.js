@@ -1,6 +1,6 @@
 import './Promise.allSettled.js';
 import './Promise.series.mjs';
-import {addClass, addClasses, hasClass, removeClass} from './manageClasses';
+import {addClass, addClasses, hasClass, removeClass, toggleClass} from './manageClasses';
 import appendAfter from './appendAfter';
 import contains from './contains.js';
 import copy from './copy.js';
@@ -26,5 +26,6 @@ export {
   removeClass,
   StringBuilder,
   throttle,
+  toggleClass,
   uuid
 };
