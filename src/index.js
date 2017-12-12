@@ -1,7 +1,8 @@
 import './Promise.allSettled.js';
 import './Promise.series.mjs';
 import {addClass, addClasses, hasClass, removeClass, toggleClass} from './manageClasses';
-import appendAfter from './appendAfter';
+import accessCode from './accessCode.js'
+import appendAfter from './appendAfter.js';
 import contains from './contains.js';
 import copy from './copy.js';
 import debounce from './debounce.js';
@@ -13,6 +14,7 @@ import throttle from './throttle.js';
 import uuid from './uuid.js';
 
 export {
+  accessCode,
   addClass,
   addClasses,
   appendAfter,

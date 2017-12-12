@@ -1,9 +1,9 @@
 {
   "name": "s-utilities",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "A collection of useful Javascript utilties",
-  "main": "dist/s-utilities.cjs.js",
-  "module": "dist/s-utilities.es.js",
+  "main": "index.js",
+  "module": "dist/s-utilities.mjs",
   "repository": "https://github.com/robhicks/s-utilties.git",
   "author": "Rob Hicks <rob@hixfamily.org>",
   "license": "MIT",
