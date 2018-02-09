@@ -94,7 +94,7 @@
     "no-new-wrappers": 2, // disallows creating new instances of String, Number, and Boolean
     "no-octal": 1, // disallow use of octal literals
     "no-octal-escape": 1, // disallow use of octal escape sequences in string literals, such as var foo = "Copyright \251";
-    "no-param-reassign": 2, // disallow reassignment of function parameters (off by default)
+    "no-param-reassign": 0, // disallow reassignment of function parameters (off by default)
     "no-process-env": 0, // disallow use of process.env (off by default)
     "no-proto": 2, // disallow usage of __proto__ property
     "no-redeclare": 2, // disallow declaring the same variable more then once
@@ -142,7 +142,7 @@
     //
     "indent": [0, 2], // this option sets a specific tab width for your code (off by default)
     "brace-style": [1, "1tbs", { "allowSingleLine": true }], // enforce one true brace style (off by default)
-    "camelcase": 1, // require camel case names
+    "camelcase": 0, // require camel case names
     "comma-spacing": [1, {"before": false, "after": true}], // enforce spacing before and after comma
     "comma-style": [1, "last"], // enforce one true comma style (off by default)
     "consistent-this": [0, "_this"], // enforces consistent naming when capturing the current execution context (off by default)
@@ -197,7 +197,7 @@
     // While the names of the rules may not match up with the JSHint/JSLint counterpart,
     // the functionality is the same.
     //
-    "max-depth": [2, 3], // specify the maximum depth that blocks can be nested (off by default)
+    "max-depth": [2, 10], // specify the maximum depth that blocks can be nested (off by default)
     "max-len": [0, 100, 2], // specify the maximum length of a line in your program (off by default)
     "max-params": [1, 10], // limits the number of parameters that can be used in the function declaration. (off by default)
     "max-statements": [1, 36], // specify the maximum number of statement allowed in a function (off by default)
