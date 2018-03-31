@@ -64,7 +64,7 @@
     // They either prescribe a better way of doing something or help you avoid footguns.
     //
     "block-scoped-var": 0, // treat var statements as if they were block scoped (off by default). 0: deep destructuring is not compatible https://github.com/eslint/eslint/issues/1863
-    "complexity": [1, 16], // specify the maximum cyclomatic complexity allowed in a program (off by default)
+    "complexity": [1, 8], // specify the maximum cyclomatic complexity allowed in a program (off by default)
     "consistent-return": 0, // require return statements to either always or never specify values
     "curly": 0, // specify curly brace conventions for all control statements
     "default-case": 1, // require default case in switch statements (off by default)
@@ -103,7 +103,7 @@
     "no-self-compare": 2, // disallow comparisons where both sides are exactly the same (off by default)
     "no-sequences": 2, // disallow use of comma operator
     "no-throw-literal": 1, // restrict what can be thrown as an exception (off by default)
-    "no-unused-expressions": 1, // disallow usage of expressions in statement position
+    "no-unused-expressions": 0, // disallow usage of expressions in statement position
     "no-void": 2, // disallow use of void operator (off by default)
     "no-warning-comments": [0, {"terms": ["todo", "fixme"], "location": "start"}], // disallow usage of configurable warning terms in comments": 2, // e.g. TODO or FIXME (off by default)
     "no-with": 2, // disallow use of the with statement

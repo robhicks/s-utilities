@@ -1,9 +1,12 @@
-import DeepProxy from '../src/DeepProxy.mjs';
+import DeepProxy from '../src/deepProxy.mjs';
 
-describe.only(`DeepProxy`, () => {
+describe(`DeepProxy`, () => {
   it(`should create a Proxy of an empty object`, () => {
-    let proxy = new DeepProxy({}, {});
-    expect(proxy._deep_proxied).to.be.true;
+    let target = {};
+    let proxy = new DeepProxy(target, {});
+    expect(proxy).to.exist;
+    expect(proxy).to.be.an('object');
+    expect(proxy).to.be.eql(target);
   });
 
   it(`should create a Proxy of a shallow object`, () => {
@@ -12,7 +15,9 @@ describe.only(`DeepProxy`, () => {
       location: 'bar'
     };
     let proxy = new DeepProxy(target, {});
-    expect(proxy._deep_proxied).to.be.true;
+    expect(proxy).to.exist;
+    expect(proxy).to.be.an('object');
+    expect(proxy).to.be.eql(target);
   });
 
   it(`should create a Proxy of a simple nested object`, () => {
@@ -23,8 +28,8 @@ describe.only(`DeepProxy`, () => {
       }
     };
     let proxy = new DeepProxy(target, {});
-    expect(proxy._deep_proxied).to.be.true;
-    expect(proxy.location._deep_proxied).to.be.true;
+    expect(proxy).to.be.eql(target);
+    expect(proxy.location).to.be.eql(target.location);
   });
 
   it(`should create a Proxy of a deeply nested object`, () => {
@@ -39,9 +44,33 @@ describe.only(`DeepProxy`, () => {
       }
     };
     let proxy = new DeepProxy(target, {});
-    expect(proxy._deep_proxied).to.be.true;
-    expect(proxy.location._deep_proxied).to.be.true;
-    expect(proxy.location.address._deep_proxied).to.be.true;
+    expect(proxy).to.be.eql(target);
+    expect(proxy.location).to.be.eql(target.location);
+    expect(proxy.location.address).to.be.eql(target.location.address);
+  });
+
+  it(`should create a Proxy of a very deeply nested object`, () => {
+    let target = {
+      name: 'foo',
+      location: {
+        name: 'bar',
+        address: {
+          street: '1000 N 1000 E',
+          city: 'American Fork',
+          region: {
+            name: 'united states',
+            location: {
+              lat: '40.393591',
+              long: '-111.797238'
+            }
+          }
+        }
+      }
+    };
+    let proxy = new DeepProxy(target, {});
+    expect(proxy).to.be.eql(target);
+    expect(proxy.location).to.be.eql(target.location);
+    expect(proxy.location.address).to.be.eql(target.location.address);
   });
 
   it(`should create of a nested array`, () => {
@@ -54,12 +83,28 @@ describe.only(`DeepProxy`, () => {
       ]
     };
     let proxy = new DeepProxy(target, {});
-    expect(proxy._deep_proxied).to.be.true;
-    expect(proxy.value._deep_proxied).to.be.true;
-    expect(proxy.value[0]._deep_proxied).to.be.true;
+    expect(proxy).to.be.eql(target);
+    expect(proxy.value).to.be.eql(target.value);
+    expect(proxy.value[0]).to.be.eql(target.value[0]);
   });
 
-  it(`should useable to detect changes in an object`, () => {
+  it(`should be useable to detect changes in a simple object`, () => {
+    let target = {
+      name: 'foo',
+    };
+    let handler = {
+      set(_target, property, value) {
+        _target[property] = value;
+        expect(_target[property]).to.be.equal('rob');
+        return true;
+      }
+    };
+    let proxy = new DeepProxy(target, handler);
+    proxy.name = 'rob';
+  });
+
+  it(`should be useable to detect changes in simple nested object`, () => {
+    let proxy;
     let target = {
       name: 'foo',
       value: {
@@ -69,13 +114,90 @@ describe.only(`DeepProxy`, () => {
     let handler = {
       set(_target, property, value) {
         _target[property] = value;
-        expect(_target._deep_proxied).to.be.true;
+        if (proxy) expect(proxy.value.name).to.be.equal('rob');
         return true;
       }
-    }
-    let proxy = new DeepProxy(target, handler);
-    expect(proxy._deep_proxied).to.be.true;
+    };
+    proxy = new DeepProxy(target, handler);
     proxy.value.name = 'rob';
+  });
+
+  it(`should be useable to detect changes in a simpe array`, () => {
+    let obj = {name: 'foo'};
+    let target = [obj];
+    let proxy;
+    let handler = {
+      set(_target, property, value) {
+        _target[property] = value;
+        if (proxy) expect(proxy).to.be.eql([{name: 'rob'}]);
+        return true;
+      }
+    };
+    proxy = new DeepProxy(target, handler);
+    proxy[0].name = 'rob';
+  });
+
+  it(`should be useable to detect changes in an array with a nested object`, () => {
+    let obj = {address: {city: 'American Fork', state: 'Utah'}};
+    let target = [obj];
+    let proxy;
+    let handler = {
+      set(_target, property, value) {
+        _target[property] = value;
+        if (proxy) expect(proxy).to.be.eql([{address: {city: 'American Fork', state: 'Wyoming'}}]);
+        return true;
+      }
+    };
+    proxy = new DeepProxy(target, handler);
+    proxy[0].address.state = 'Wyoming';
+  });
+
+  it(`should be useable to detect changes in a nested array with a nested object`, () => {
+    let obj = {name: 'rob', address: {city: 'American Fork', state: 'Utah'}};
+    let target = {users: [obj]};
+    let proxy;
+    let handler = {
+      set(_target, property, value) {
+        _target[property] = value;
+        if (proxy) expect(proxy).to.be.eql({users: [{name: 'rob', address: {city: 'American Fork', state: 'Wyoming'}}]});
+        return true;
+      }
+    };
+    proxy = new DeepProxy(target, handler);
+    proxy.users[0].address.state = 'Wyoming';
+  });
+
+  it(`should detect changes in a very deeply nested object`, (done) => {
+    let proxy;
+    let target = {
+      name: 'foo',
+      location: {
+        name: 'bar',
+        address: {
+          street: '1000 N 1000 E',
+          city: 'American Fork',
+          region: {
+            name: 'united states',
+            location: {
+              lat: '40.393591',
+              long: '-111.797238'
+            }
+          }
+        }
+      }
+    };
+    let handler = {
+      set(_target, property, value) {
+        _target[property] = value;
+        return true;
+      }
+    };
+
+    proxy = new DeepProxy(target, handler);
+    setTimeout(() => {
+      proxy.location.address.region.location.lat === '44';
+      done();
+    }, 500);
   });
 
   describe(`DeepProxy.revocable()`, () => {
@@ -89,12 +211,11 @@ describe.only(`DeepProxy`, () => {
       let handler = {
         set(_target, property, value) {
           _target[property] = value;
-          expect(_target._deep_proxied).to.be.true;
           return true;
         }
-      }
+      };
       let proxyObj = DeepProxy.revocable(target, handler);
-      expect(proxyObj.proxy).to.be.a('function');
+      expect(proxyObj.proxy).to.be.an('object');
       expect(proxyObj.revoke).to.be.a('function');
     });
 
@@ -108,17 +229,15 @@ describe.only(`DeepProxy`, () => {
       let handler = {
         set(_target, property, value) {
           _target[property] = value;
-          expect(_target._deep_proxied).to.be.true;
           return true;
         }
-      }
+      };
       let proxyObj = DeepProxy.revocable(target, handler);
-      let proxy = proxyObj.proxy();
-      expect(proxy._deep_proxied).to.be.true;
-      expect(proxy.value._deep_proxied).to.be.true;
+      let proxy = proxyObj.proxy;
+      expect(proxy.name).to.be.equal('foo');
     });
 
-    it(`should return a proxy object, when revoked will remove the proxy`, () => {
+    it(`should revoke a revocable proxy`, () => {
       let target = {
         name: 'foo',
         value: {
@@ -128,13 +247,11 @@ describe.only(`DeepProxy`, () => {
       let handler = {
         set(_target, property, value) {
           _target[property] = value;
-          expect(_target._deep_proxied).to.be.true;
           return true;
         }
-      }
+      };
       let proxyObj = DeepProxy.revocable(target, handler);
       proxyObj.revoke();
-      expect(proxyObj.proxy).to.be.a('function');
     });
   });
 });

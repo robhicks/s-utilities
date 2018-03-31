@@ -1,11 +1,12 @@
 import './Promise.allSettled.js';
 import './Promise.series.mjs';
 import {addClass, addClasses, hasClass, removeClass, toggleClass} from './manageClasses';
-import accessCode from './accessCode.js'
+import accessCode from './accessCode.js';
 import appendAfter from './appendAfter.js';
 import contains from './contains.js';
 import copy from './copy.js';
 import debounce from './debounce.js';
+import DeepProxy from './DeepProxy.mjs';
 import isInViewport from './isInViewport.js';
 import isJson from './isJson.js';
 import pad from './pad.js';
@@ -21,6 +22,7 @@ export {
   contains,
   copy,
   debounce,
+  DeepProxy,
   hasClass,
   isInViewport,
   isJson,
@@ -31,3 +33,5 @@ export {
   toggleClass,
   uuid
 };
+
+export {EventEmitter} from './EventEmitter.mjs';

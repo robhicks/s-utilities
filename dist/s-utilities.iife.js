@@ -132,6 +132,40 @@ function debounce(func, wait, immediate) {
   };
 }
 
+var DeepProxy = function DeepProxy(target, handler, revocable) {
+  if ( revocable === void 0 ) revocable = false;
+
+  if (typeof target !== 'object' || typeof handler !== 'object') { throw TypeError('target and handler must be objects'); }
+  return this._create(target, handler, revocable);
+};
+
+DeepProxy.prototype._create = function _create (target, handler, revocable) {
+    var this$1 = this;
+    if ( revocable === void 0 ) revocable = false;
+
+  var _target;
+
+  if (!Array.isArray(target)) { _target = revocable ? Proxy.revocable(target, handler) : new Proxy(target, handler); }
+  else { _target = target; }
+
+  var __target = _target.proxy ? _target.proxy : _target;
+  for (var prop in __target) {
+    if (__target.hasOwnProperty(prop)) {
+      if (__target[prop] && typeof __target[prop] === 'object' && !Array.isArray(__target)) { __target[prop] = this$1._create(__target[prop], handler, revocable); }
+      if (Array.isArray(__target)) { __target = revocable ? Proxy.revocable(__target, handler) : new Proxy(__target, handler); }
+    }
+  }
+  return Array.isArray(_target) ? revocable ? Proxy.revocable(_target, handler) : new Proxy(_target, handler) : _target;
+};
+
+DeepProxy.revocable = function revocable (target, handler) {
+  var dp = new DeepProxy(target, handler, true);
+  return {
+    revoke: dp.revoke,
+    proxy: dp.proxy
+  };
+};
+
 function isInViewport(element) {
   var rect = element.getBoundingClientRect();
   // console.log("rect", rect)
@@ -193,6 +227,67 @@ function uuid$1() {
   return uid;
 }
 
+function argValidator(event, listener) {
+  if (typeof event !== 'string') { throw TypeError('event must be string'); }
+  if (typeof listener !== 'function') { throw TypeError('listener must be function'); }
+}
+var eventEmitterMap = new Map();
+
+var EventEmitter = function EventEmitter(singleton) {
+  if ( singleton === void 0 ) singleton = false;
+
+  if (singleton) {
+    if (eventEmitterMap.has('instance')) { return eventEmitterMap.get('instance'); }
+    eventEmitterMap.set('instance', this);
+  }
+  this.events = {};
+};
+
+var prototypeAccessors = { size: {} };
+
+EventEmitter.prototype.clear = function clear () {
+  this.events = {};
+};
+
+EventEmitter.prototype.emit = function emit (event) {
+    var args = [], len = arguments.length - 1;
+    while ( len-- > 0 ) args[ len ] = arguments[ len + 1 ];
+
+  if (this.events[event]) {
+    (this.events[event] || []).forEach(function (l) { return l.apply(void 0, args); });
+  }
+};
+
+EventEmitter.prototype.off = function off (event, listener) {
+  argValidator(event, listener);
+  if (this.events[event]) {
+    var idx = this.events[event].findIndex(function (e) { return e === listener; });
+    if (idx > -1) { this.events[event].splice(idx, 1); }
+    if (this.events[event].length === 0) { delete this.events[event]; }
+  }
+};
+
+EventEmitter.prototype.on = function on (event, listener) {
+  argValidator(event, listener);
+  if (!this.events[event]) { this.events[event] = []; }
+  this.events[event].push(listener);
+};
+
+EventEmitter.prototype.once = function once (event, listener) {
+  argValidator(event, listener);
+  var self = this;
+  this.on(event, function f() {
+    self.off(event, f);
+    listener.apply(this, arguments);
+  });
+};
+
+prototypeAccessors.size.get = function () {
+  return Object.keys(this.events).length;
+};
+
+Object.defineProperties( EventEmitter.prototype, prototypeAccessors );
+
 exports.accessCode = accessCode;
 exports.addClass = addClass;
 exports.addClasses = addClasses;
@@ -200,6 +295,7 @@ exports.appendAfter = appendAfter;
 exports.contains = contains;
 exports.copy = copy;
 exports.debounce = debounce;
+exports.DeepProxy = DeepProxy;
 exports.hasClass = hasClass;
 exports.isInViewport = isInViewport;
 exports.isJson = isJson;
@@ -209,6 +305,7 @@ exports.StringBuilder = StringBuilder;
 exports.throttle = throttle;
 exports.toggleClass = toggleClass;
 exports.uuid = uuid$1;
+exports.EventEmitter = EventEmitter;
 
 return exports;
 
