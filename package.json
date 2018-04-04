@@ -1,6 +1,6 @@
 {
   "name": "s-utilities",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "A collection of useful Javascript utilties",
   "main": "index.js",
   "module": "dist/s-utilities.mjs",
@@ -12,6 +12,7 @@
     "build-watch": "rollup -cw",
     "dev": "npm-run-all --parallel build-watch dev-server",
     "dev-server": "node ./dev-server.js",
+    "postinstall": "npm-run-all build",
     "test": "node ./test-server.js"
   },
   "devDependencies": {
