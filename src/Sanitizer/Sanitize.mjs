@@ -2,7 +2,7 @@ import basicConfig from './basicConfig.mjs';
 import relaxedConfig from './relaxedConfig.mjs';
 import restrictedConfig from './restrictedConfig.mjs';
 import domEvents from './dom-level-1-events.mjs';
-import TinyUri from '../../../../node_modules/tiny-uri/dist/tiny-uri.mjs';
+import TinyUri from 'tiny-uri';
 
 export default class Sanitize {
   constructor(config = 'basic') {

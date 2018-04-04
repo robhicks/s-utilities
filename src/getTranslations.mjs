@@ -1,5 +1,5 @@
 import StringBuilder from './StringBuilder.mjs';
-import TinyUri from '../../../node_modules/tiny-uri/dist/tiny-uri.mjs';
+import TinyUri from 'tiny-uri';
 
 let translations = new Map();
 let request = new Map();

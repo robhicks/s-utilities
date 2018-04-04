@@ -105,9 +105,9 @@ function contains(str = '', val) {
   return str.indexOf(val) !== -1;
 }
 
-var copy = function(obj = {}) {
+function copy(obj = {}) {
   return JSON.parse(JSON.stringify(obj));
-};
+}
 
 function debounce(func, wait, immediate) {
   let timeout;
@@ -193,6 +193,7 @@ class StringBuilder {
     return this;
   }
   insert(pos, val) {
+    let length = this.string.length;
     let left = this.string.slice(0, pos);
     let right = this.string.slice(pos);
     this.string = left + val + right;
