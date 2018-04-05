@@ -116,6 +116,54 @@ var SUtils = (function (exports) {
     return JSON.parse(JSON.stringify(obj));
   }
 
+  var DataStore = function DataStore() {
+    this.storeMap = {};
+  };
+
+  // this.get(el, "hi");
+  DataStore.prototype.get = function get (element, key) {
+    return this.getStore(element)[key] || null;
+  };
+
+  DataStore.prototype.getAll = function getAll () {
+    console.log("this.storeMap", this.storeMap);
+  };
+
+  // this.set(el, "hi", {"number": 4}
+  DataStore.prototype.set = function set (element, key, value) {
+    if (!value) { return; }
+    this.getStore(element)[key] = value;
+    return value;
+  };
+
+  // this.remove(el);
+  // this.remove(el, "hi");
+  DataStore.prototype.remove = function remove (element, key) {
+    if (key) {
+      var store = this.getStore(element);
+      if (store[key]) { delete store[key]; }
+    } else {
+      var elementId = element[this.storeId];
+      if (elementId) {
+        delete this.storeMap[elementId];
+        delete element[this.storeId];
+      }
+    }
+  };
+
+  DataStore.prototype.getStore = function getStore (element) {
+    var storeId = this.storeId;
+    var storeMap = this.storeMap;
+    var elementId = element[storeId];
+
+    if (!elementId) {
+      elementId = element[storeId] = this.uid++;
+      storeMap[elementId] = {};
+    }
+
+    return storeMap[elementId];
+  };
+
   function debounce(func, wait, immediate) {
     var timeout;
     return function() {
@@ -295,6 +343,7 @@ var SUtils = (function (exports) {
   exports.appendAfter = appendAfter;
   exports.contains = contains;
   exports.copy = copy;
+  exports.DataStore = DataStore;
   exports.debounce = debounce;
   exports.DeepProxy = DeepProxy;
   exports.hasClass = hasClass;

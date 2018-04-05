@@ -13,8 +13,8 @@ export default [
     external,
     input,
     plugins: [buble()],
-    name: 'SUtils',
     output: {
+      name: 'SUtils',
       file: 'dist/s-utilities.iife.js',
       format: 'iife',
       globals
@@ -24,8 +24,8 @@ export default [
     external,
     input,
     plugins: [buble(), uglify()],
-    name: 'SUtils',
     output: {
+      name: 'SUtils',
       file: 'dist/s-utilities.iife.min.js',
       format: 'iife',
       globals

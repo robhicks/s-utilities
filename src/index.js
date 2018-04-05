@@ -5,6 +5,7 @@ import accessCode from './accessCode.js';
 import appendAfter from './appendAfter.js';
 import contains from './contains.js';
 import copy from './copy.js';
+import DataStore from './DataStore.js';
 import debounce from './debounce.js';
 import DeepProxy from './DeepProxy.mjs';
 import isInViewport from './isInViewport.js';
@@ -21,6 +22,7 @@ export {
   appendAfter,
   contains,
   copy,
+  DataStore,
   debounce,
   DeepProxy,
   hasClass,
